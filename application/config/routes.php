@@ -49,14 +49,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-$route['default_controller'] = 'welcome';
+$route['default_controller'] = 'link';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
-// $route['create'] = "Note/create";
-// $route['itemCRUD'] = "itemCRUD/index";
-// $route['itemCRUD/(:num)'] = "itemCRUD/show/$1";
-// $route['itemCRUDCreate']['post'] = "itemCRUD/store";
-// $route['itemCRUDEdit/(:any)'] = "itemCRUD/edit/$1";
-// $route['itemCRUDUpdate/(:any)']['put'] = "itemCRUD/update/$1";
-// $route['itemCRUDDelete/(:any)']['delete'] = "itemCRUD/delete/$1";
+// Link Routing
+$route['createLink'] = "Link/create";
+$route['storeLink'] = "Link/store";
+$route['updateLink'] = "Link/update";
+$route['deleteLink/(:num)'] = "Link/delete";
+$route['editLink/(:any)'] = "Link/edit/$1";
+
+// Presentation Routing
+$route['createPresentation'] = "Presentation/create";
+$route['storePresentation'] = "Presentation/store";
+$route['editPresentation'] = "Presentation/edit";
