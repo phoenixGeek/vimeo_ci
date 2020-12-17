@@ -19,4 +19,12 @@ class Users_model extends CI_Model {
         return $query->result();
     }
     
+    public function store_foldername($newFolderName)
+    {
+        $data = array(
+            'vfoldername' => $newFolderName
+        );
+        $this->db->where('name', 'miguel');
+        return $this->db->update('users', $data);
+    }
 }

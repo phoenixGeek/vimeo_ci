@@ -13,6 +13,7 @@ class Link extends CI_Controller {
         $this->load->model('links_model');
         $this->load->model('presentations_model');
         $this->load->model('users_model');
+        $this->load->model('folders_model');
         $this->load->helper('string');
         $this->load->helper('form');
         $this->load->library('form_validation');
@@ -127,12 +128,13 @@ class Link extends CI_Controller {
 
                     $folder_arr = array();
                     $newFolderName = 'v_' .$user[0]->user_id . '_'. $user[0]->name;
-                    
+                    $this->users_model->store_foldername($newFolderName);
                     $response = $client->request('/me/projects/', array(), 'GET');
                     $isProjectExist = false;
 
                     // check if vimeo targeted project(folder) exists or not
                     foreach($response['body']['data'] as $key => $project) {
+                        array_push($folder_arr, ['foldername' => $project['name']]);
                         if($project['name'] === $newFolderName)
                         {
                             $isProjectExist = true;
@@ -141,6 +143,7 @@ class Link extends CI_Controller {
                             break;
                         }
                     }
+                    $this->folders_model->insert($folder_arr);
 
                     if($isProjectExist) {
 
@@ -150,6 +153,7 @@ class Link extends CI_Controller {
                             "description" => "Awesome educational video."
                         ));
                         $video_data = $client->request($uri . '?fields=link');
+                        
                         $splitedResult = explode('/', $uri);
                         $video_id = end($splitedResult);
                         $new_url = "https://vimeo.com/" . $video_id;
@@ -163,6 +167,7 @@ class Link extends CI_Controller {
                             "description" => "Awesome educational video."
                         ));
                         $video_data = $client->request($uri . '?fields=link');
+
                         $splitedResult = explode('/', $uri);
                         $video_id = end($splitedResult);
                         $new_url = "https://vimeo.com/" . $video_id;
@@ -174,7 +179,7 @@ class Link extends CI_Controller {
                     }
 
                     $this->session->set_flashdata('success', 'Video Has been Uploaded');
-                    
+                    // $this->folders_model->insert($folder_arr);                    
                     $data['link'] = $this->links_model->createOrUpdate($new_url);
                     redirect(''); 
                 }

@@ -64,3 +64,5 @@ $route['editLink/(:any)'] = "Link/edit/$1";
 $route['createPresentation'] = "Presentation/create";
 $route['storePresentation'] = "Presentation/store";
 $route['editPresentation'] = "Presentation/edit";
+
+$route['trackUpload'] = "Track/track";

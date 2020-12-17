@@ -1,6 +1,6 @@
 <?php
 class Links_model extends CI_Model {
-    
+
     /**
      * Link Model
      */
@@ -53,6 +53,15 @@ class Links_model extends CI_Model {
             $this->db->where('link_id', $id);
             return $this->db->update('links', $data);
         }
+    }
+
+    public function update_active($link_id)
+    {
+        $data = array(
+            'active' => 1
+        );
+        $this->db->where('link_id', $link_id);
+        return $this->db->update('links', $data);
     }
 
     public function delete($id)
